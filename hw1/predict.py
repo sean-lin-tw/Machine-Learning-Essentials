@@ -9,10 +9,16 @@ dataFile = sys.argv[1]
 data = pd.read_csv(dataFile, encoding="big5", header=None)
 outputFile = open(sys.argv[2] + '.csv', 'w')
 
+attr_select = ['PM2.5']
+attr = dict()
+for i in range(18):
+    attr[data[1][i]] = i
+
 train_hours = int(sys.argv[3])
 num_attrs = 18
+num_attrs_select = len(attr_select)
 num_cols = 9
-num_features = (num_attrs - 1) * train_hours + 1 # skip the 'RAINFALL' row
+num_features = num_attrs_select * train_hours + 1 
 num_inputs = 240
 weight = np.ones([num_features])
 input_matrix = np.empty([num_inputs, num_features])
@@ -26,14 +32,15 @@ for i in range(num_features):
 # Fill in I/O arrays
 for i in range(num_inputs):
     row_base = 18 * i
-    row_off = 0
     col = 10 - train_hours + 1
+    attr_ctr = 0
     for j in range(num_features):
+        row_off = attr[attr_select[attr_ctr]] 
 	input_matrix[i][j] = float(data[col][row_base + row_off]) if (j != num_features - 1) else 1.0  
-        row_off = 11 if (row_off == 9) else (row_off + 1) % num_attrs
-        col = col + 1 if (row_off == 0) else col
+        col = col + 1 if (attr_ctr == num_attrs_select - 1) else col
+        attr_ctr = (attr_ctr + 1) % num_attrs_select
     output[i] = np.dot(weight, input_matrix[i])
- 
+
 # Write result to file
 outputFile.write('id,value\n')
 for i in range(num_inputs):
