@@ -22,12 +22,16 @@ num_attrs_select = len(attr_select)
 num_cols = 24
 num_features = num_attrs_select * train_hours + 1
 num_inputs = 12 * (480 - train_hours) 
+train_iterations = 1000
 weight = np.zeros([num_features])
+# weight = [0.0524908191811, 0.0492378582064, 0.0508793799676, 0.0593779946373,0.0730237611123,0.0950658406287, 0.119996737864, 0.188980452506, 0.261858552031, 0.00560602511076]
 input_matrix = np.empty([num_inputs, num_features])
 output = np.empty([num_inputs])
 gradient = np.empty([num_features])
 grad_sqr_sum = np.zeros([num_features])
-rate = 1.0e-5
+loss_record = [0.0] * train_iterations
+reg = 1000 
+rate = 10e-4
 
 # Fill in I/O arrays
 attr = dict()
@@ -52,35 +56,45 @@ for i in range(num_inputs):
         row_base = row_base - num_attrs if (col < train_hours - 1) else row_base
         col = (col - train_hours + 1 + num_cols) % num_cols
         
-for k in range(10000):
+for k in range(train_iterations):
     # Compute gradient descent(with/without regularization)
     for i in range(num_features):
         gradsum = 0.0
         for j in range(num_inputs):
             gradsum += (output[j] - np.dot(weight, input_matrix[j])) * (input_matrix[j][i])
-        gradient[i] = gradsum * (-2) / num_inputs
+        gradient[i] = (gradsum * (-2) + 2 * reg * weight[i]) / num_inputs
         grad_sqr_sum[i] += gradient[i] ** 2
 
     # Update the paramaters, using adaptive learning rate (adagrad)
-    weight = weight - rate * gradient # / (grad_sqr_sum ** 0.5)
+    weight = weight - rate * gradient #/ (grad_sqr_sum ** 0.5)
 
     # Compute loss function
     loss = 0.0
     for i in range(num_inputs):
         loss += (output[i] - np.dot(weight, input_matrix[i])) ** 2
-
+	for i in range(num_features-1):
+		loss += reg * (weight[i] ** 2) 
+	loss = loss / num_inputs
+	loss_record[k] = loss 
     # Decide whether to terminate or not(#iterations or error threshold)
+'''
     print 'Iteration ' + str(k + 1) + ': \n'
     print 'Weight: \n'
     print weight
     print 'Gradient: \n'
     print gradient
-    print 'Grad_sum\n'
+    print 'Grad_sum\n'	
     print grad_sqr_sum
     print '\nLoss = ' + str(loss) + '\n'
+'''
 
 # write parameters to file
 output = open(sys.argv[3], 'w')
 for i in range(num_features):
     output.write(str(weight[i]) + '\n')
 output.close()
+
+lossfile = open('data/loss.txt', 'w')
+for i in range(train_iterations):
+	lossfile.write(str(loss_record[i]) + '\n')
+lossfile.close()
