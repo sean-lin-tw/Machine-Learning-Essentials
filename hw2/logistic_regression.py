@@ -1,11 +1,21 @@
 #!/usr/bin/python
-import sys
+import sys, argparse
+from os.path import isfile
+from argparse import ArgumentParser
 import pandas as pd
 import numpy as np
 import math
 
+# Program arguments
+parser = ArgumentParser(description="Logistic Regression Training Program")
+parser.add_argument("-i", "--input", default="spam_data/spam_train.csv", help="training data path")
+parser.add_argument("-o", "--output", default="parameters.txt", help="parameters for the logistic regression model")
+parser.add_argument("-l", "--iterations", default="1000", help="gradient descent iterations")
+parser.add_argument("-r", "--learning_rate", default="10e-6", help="learning rate for gradient descent")
+args = parser.parse_args()  
+dataFile, outputFile, train_iterations, rate= args.input, args.output, int(args.iterations), float(args.learning_rate)
+
 # Read csv into table
-dataFile = "spam_data/spam_train.csv"
 data = pd.read_csv(dataFile, header=None, index_col=0)
 
 # Decide which features to use (include the constant 'bias' term) PM2.5 & PM10
@@ -13,14 +23,12 @@ attr = range(1, data.shape[1])
 num_features = len(attr) + 1
 num_inputs = data.shape[0] 
 
-train_iterations = 10000
 weight = np.zeros([num_features])
 input_matrix = np.empty([num_inputs, num_features])
 output = np.empty([num_inputs])
 gradient = np.empty([num_features])
 loss_record = [0.0] * train_iterations
 reg = 0 
-rate = 10e-6
 exp_max = math.log(sys.float_info.max)
 
 # Fill in I/O arrays
@@ -76,7 +84,7 @@ for k in range(train_iterations):
     print 'Loss = ' + str(loss) + '\n'
 
 # write parameters to file
-output = open('parameters.txt', 'w')
+output = open(outputFile, 'w')
 for i in range(num_features):
     output.write(str(weight[i]) + '\n')
 output.close()
