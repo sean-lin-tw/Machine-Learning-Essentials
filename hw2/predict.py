@@ -20,7 +20,7 @@ data = pd.read_csv(dataFile, header=None, index_col=0)
 outputFp = open(outputFile, 'w')
 
 # Normalization
-data_norm = (data - data.mean()) / (data.max() - data.min())
+data = (data - data.mean()) / (data.max() - data.min())
 
 # Decide which features to use (include the constant 'bias' term) PM2.5 & PM10
 attr = range(1, data.shape[1] + 1)
