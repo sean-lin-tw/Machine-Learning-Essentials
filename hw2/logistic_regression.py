@@ -17,6 +17,9 @@ dataFile, outputFile, train_iterations, rate= args.input, args.output, int(args.
 
 # Read csv into table
 data = pd.read_csv(dataFile, header=None, index_col=0)
+data[data.columns[0:57]] = (data[data.columns[0:57]] - data[data.columns[0:57]].mean()) / (data[data.columns[0:57]].max() - data[data.columns[0:57]].min())
+
+# Apply normalization
 
 # Decide which features to use (include the constant 'bias' term) PM2.5 & PM10
 attr = range(1, data.shape[1])
@@ -28,7 +31,7 @@ input_matrix = np.empty([num_inputs, num_features])
 output = np.empty([num_inputs])
 gradient = np.empty([num_features])
 loss_record = [0.0] * train_iterations
-reg = 0 
+reg = 0
 exp_max = math.log(sys.float_info.max)
 
 # Fill in I/O arrays
@@ -48,7 +51,7 @@ for k in range(train_iterations):
                 gradsum += (output[j] - 1/(1 + math.exp(-z))) * (input_matrix[j][i])
             else:
                 gradsum += output[j] * input_matrix[j][i]
-        gradient[i] = (gradsum * (-1) + 2 * reg * weight[i])  / num_inputs
+        gradient[i] = (gradsum * (-1) + 2 * reg * weight[i])  / num_inputs  
 
     # Update the paramaters, using adaptive learning rate (adagrad)
     weight = weight - rate * gradient #/ (grad_sqr_sum ** 0.5)                               
