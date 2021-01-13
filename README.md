@@ -1,7 +1,5 @@
 # Machine-Learning-Practices
-Machine Learning Practices from the course by Prof. Hung-Yi Lee in National Taiwan University.
-
-Link: http://speech.ee.ntu.edu.tw/~tlkagk/courses_ML20.html
+Machine Learning Practices from the [course](http://speech.ee.ntu.edu.tw/~tlkagk/courses_ML20.html) by Prof. Hung-Yi Lee in National Taiwan University.
 
 HW0 - demonstrating Python proficiency
 
