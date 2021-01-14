@@ -3,6 +3,10 @@ Machine Learning Practices from the [course](http://speech.ee.ntu.edu.tw/~tlkagk
 
 HW0 - demonstrating Python proficiency
 
-Hw1 - Linear Regression
+HW1 - Linear Regression
 
-Hw2 - Logistic Regression (Classification)
+HW2 - Logistic Regression (Classification)
+
+HW3 - Convolutional Neural Network ([Kaggle Link](https://www.kaggle.com/c/ml2020spring-hw3))
+
+HW4 - Recurrent Neural Network
