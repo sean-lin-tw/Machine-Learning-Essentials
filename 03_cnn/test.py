@@ -12,11 +12,12 @@ parser.add_argument('file_prediction', help='Filename of the prediction results(
 dir_test = os.path.join(parser.dir_data, 'testing')
 
 # Check if model exists; or else download it
-if not os.path.isfile('hw3.h5'):
+model_file = 'hw3.h5'
+if not os.path.isfile(model_file):
     url = "https://drive.google.com/u/1/uc?id=1rt0-DRWWNb18Y2RchhAgx3y2ig2fsB7v&export=download"
-    gdown.download(url, 'hw3.h5')
+    gdown.download(url, model_file)
 
-model = keras.models.load_model('hw3.h5')
+model = keras.models.load_model(model_file)
 
 # Read test data and predict
 prediction = []
