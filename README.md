@@ -32,3 +32,8 @@ HW13 - Meta Learning
 HW14 - Lifelong Learning
 
 HW15 - Reinforcement Learning
+
+# Learning Resources
+[Deep Learning with PyTorch: A 60 Minute Blitz](https://pytorch.org/tutorials/beginner/deep_learning_60min_blitz.html)
+
+[How to Use Word Embedding Layers for Deep Learning with Keras](https://machinelearningmastery.com/use-word-embedding-layers-deep-learning-keras/)
