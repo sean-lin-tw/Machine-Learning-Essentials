@@ -1,5 +1,6 @@
 *.csv
-data*/
 *.docx
+*.h5
 *.ipynb
 .ipynb_checkpoints/
+data*/
