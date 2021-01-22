@@ -2,6 +2,7 @@
 # coding: utf-8
 
 import os
+import shutil
 import math
 import numpy as np
 from keras.models import Sequential  # NN Activation
@@ -20,26 +21,31 @@ Reading input data (training, validation, test)
 '''
 parser = ArgumentParser()
 parser.add_argument('dir_data', help='Directory path that contains training, validation, and testing data')
-dir_train = os.path.join(parser.dir_data, 'training')
-dir_validation = os.path.join(parser.dir_data, 'validation')
+args = parser.parse_args()
+dir_train = os.path.join(args.dir_data, 'training')
+dir_validation = os.path.join(args.dir_data, 'validation')
 
-# TODO: training/validation grouping
-
-# reading training data
-label_train = []
+# Grouping training data for loading direclt from directories
 for filename in os.listdir(dir_train):
     if filename.endswith(".jpg"):
-        group, group_id = tuple(map(int, os.path.splitext(filename)[0].split('_')))
-        label_train.append(group)
+        group = os.path.splitext(filename)[0].split('_')[0]
+        dir_group = os.path.join(dir_train, group)
+        if not os.path.isdir(dir_group):
+            os.mkdir(dir_group) 
+        # Move a file by renaming it's path
+        shutil.move(os.path.join(dir_train, filename), os.path.join(dir_group, filename))
 
-# reading validation data
-label_validation = []
+# Grouping validation data for loading direclt from directories
 for filename in os.listdir(dir_validation):
     if filename.endswith(".jpg"):
-        group, group_id = tuple(map(int, os.path.splitext(filename)[0].split('_')))
-        label_validation.append(group)
+        group = os.path.splitext(filename)[0].split('_')[0]
+        dir_group = os.path.join(dir_validation, group)
+        if not os.path.isdir(dir_group):
+            os.mkdir(dir_group) 
 
-# Fitting the CNN to the images
+        shutil.move(os.path.join(dir_validation, filename), os.path.join(dir_group, filename))
+
+# Loading training/validation data from directories and fitting images to the CNN
 batch_size = 32    
 train_datagen = ImageDataGenerator(rescale = 1./255, shear_range = 0.2, zoom_range = 0.2, horizontal_flip = True)
 validation_datagen = ImageDataGenerator(rescale = 1./255)

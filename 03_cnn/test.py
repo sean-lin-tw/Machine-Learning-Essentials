@@ -9,12 +9,13 @@ import os
 parser = ArgumentParser()
 parser.add_argument('dir_data', help='Directory path that contains training, validation, and testing data')
 parser.add_argument('file_prediction', help='Filename of the prediction results(.csv)')
-dir_test = os.path.join(parser.dir_data, 'testing')
+args = parser.parse_args()
+dir_test = os.path.join(args.dir_data, 'testing')
 
 # Check if model exists; or else download it
 model_file = 'hw3.h5'
 if not os.path.isfile(model_file):
-    url = "https://drive.google.com/u/1/uc?id=1rt0-DRWWNb18Y2RchhAgx3y2ig2fsB7v&export=download"
+    url = "https://github.com/jacky6016/Machine-Learning-Practices/releases/download/hw3-model/hw3.h5"
     gdown.download(url, model_file)
 
 model = keras.models.load_model(model_file)
@@ -31,7 +32,7 @@ for filename in os.listdir(dir_test):
         prediction.append([img_id, result])
 
 # Write prediction results into a csv file
-with open(parser.file_prediction, 'w') as f:
+with open(args.file_prediction, 'w') as f:
     f.write('Id,Category\n')
     for img_id, result in prediction:
         f.write('{},{}\n'.format(img_id, result))
