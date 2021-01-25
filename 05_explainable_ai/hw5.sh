@@ -1,1 +1,2 @@
-python train.py $1 $2
+#!/bin/bash
+python explainable.py $1 $2
