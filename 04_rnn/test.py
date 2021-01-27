@@ -44,7 +44,7 @@ if __name__ == '__main__':
     '''
     model_file = 'hw4.h5'
     if not os.path.isfile(model_file):
-        url = "https://github.com/jacky6016/Machine-Learning-Practices/releases/download/hw3-model/hw3.h5"
+        url = "https://github.com/jacky6016/Machine-Learning-Practices/releases/download/hw4-rnn-model/hw4.h5"
         gdown.download(url, model_file)
 
     model = load_model(model_file)

@@ -15,7 +15,7 @@ dir_test = os.path.join(args.dir_data, 'testing')
 # Check if model exists; or else download it
 model_file = 'hw3.h5'
 if not os.path.isfile(model_file):
-    url = "https://github.com/jacky6016/Machine-Learning-Practices/releases/download/hw3-model/hw3.h5"
+    url = "https://github.com/jacky6016/Machine-Learning-Practices/releases/download/hw3-cnn-model/hw3.h5"
     gdown.download(url, model_file)
 
 model = keras.models.load_model(model_file)

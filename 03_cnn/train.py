@@ -47,10 +47,11 @@ for filename in os.listdir(dir_validation):
 
 # Loading training/validation data from directories and fitting images to the CNN
 batch_size = 32    
+img_size = (128, 128)
 train_datagen = ImageDataGenerator(rescale = 1./255, shear_range = 0.2, zoom_range = 0.2, horizontal_flip = True)
 validation_datagen = ImageDataGenerator(rescale = 1./255)
-training_data = train_datagen.flow_from_directory(dir_train, target_size = (128, 128), batch_size = batch_size)
-validation_data = validation_datagen.flow_from_directory(dir_validation, target_size = (128, 128), batch_size = batch_size)
+training_data = train_datagen.flow_from_directory(dir_train, target_size = img_size, batch_size = batch_size)
+validation_data = validation_datagen.flow_from_directory(dir_validation, target_size = img_size, batch_size = batch_size)
 
 
 '''
@@ -62,7 +63,7 @@ Building a CNN:
 model = Sequential()  
 
 # First convolutional layer (and max pooling)
-model.add(Conv2D(16, (3, 3), input_shape = (128, 128, 3), activation = 'relu'))
+model.add(Conv2D(16, (3, 3), input_shape = (img_size[0], img_size[1], 3), activation = 'relu'))
 model.add(MaxPooling2D(pool_size = (2, 2)))
 
 # Second convolutional layer (and max pooling)
