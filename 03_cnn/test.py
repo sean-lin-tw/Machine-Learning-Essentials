@@ -21,11 +21,12 @@ if not os.path.isfile(model_file):
 model = keras.models.load_model(model_file)
 
 # Read test data and predict
+img_size = (128, 128)
 prediction = []
 for filename in os.listdir(dir_test):
     if filename.endswith(".jpg"):
         img_id = int(os.path.splitext(filename)[0])
-        img = image.load_img(os.path.join(dir_test, filename), target_size = (128, 128))
+        img = image.load_img(os.path.join(dir_test, filename), target_size = img_size)
         img = image.img_to_array(img)
         img = np.expand_dims(img, axis = 0)
         result = np.argmax(model.predict(img))

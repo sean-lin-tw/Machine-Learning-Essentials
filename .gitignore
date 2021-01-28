@@ -2,5 +2,6 @@
 *.docx
 *.h5
 *.ipynb
+*.zip
 .ipynb_checkpoints/
 data*/

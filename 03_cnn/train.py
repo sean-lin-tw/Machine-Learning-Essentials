@@ -63,25 +63,26 @@ Building a CNN:
 model = Sequential()  
 
 # First convolutional layer (and max pooling)
-model.add(Conv2D(16, (3, 3), input_shape = (img_size[0], img_size[1], 3), activation = 'relu'))
+model.add(Conv2D(32, (3, 3), input_shape = (img_size[0], img_size[1], 3), activation = 'relu'))
+model.add(Conv2D(32, (3, 3), activation = 'relu'))
 model.add(MaxPooling2D(pool_size = (2, 2)))
 
 # Second convolutional layer (and max pooling)
-model.add(Conv2D(16, (3, 3), activation = 'relu'))
+model.add(Conv2D(64, (3, 3), activation = 'relu'))
+model.add(Conv2D(64, (3, 3), activation = 'relu'))
 model.add(MaxPooling2D(pool_size = (2, 2)))
 
-# Third convolutional layer (and max pooling)
-model.add(Conv2D(16, (3, 3), activation = 'relu'))
+model.add(Conv2D(128, (3, 3), activation = 'relu'))
+model.add(Conv2D(128, (3, 3), activation = 'relu'))
 model.add(MaxPooling2D(pool_size = (2, 2)))
-
 # Dropout layer prevents overfitting
-model.add(Dropout(0.25))
+# model.add(Dropout(0.25))
 
 # Flattening
 model.add(Flatten())
 
 # Feedforward Neural Network
-model.add(Dense(units = 64, activation = 'relu'))
+model.add(Dense(units = 128, activation = 'relu'))
 model.add(Dense(units = 11, activation= 'softmax'))
 
 # Compile CNN
@@ -96,8 +97,16 @@ Training CNN
 '''
 steps_per_epoch = math.ceil(9866 / batch_size)
 validation_steps = math.ceil(3430 / batch_size)
-epochs = 1
-model.fit_generator(training_data, steps_per_epoch = steps_per_epoch, epochs = epochs, validation_data = validation_data, validation_steps = validation_steps)
+epochs = 100
+history = model.fit_generator(training_data, steps_per_epoch = steps_per_epoch, epochs = epochs, validation_data = validation_data, validation_steps = validation_steps)
+
+# Evaluate model
+print("Evaluate on training data")
+results_training = model.evaluate_generator(train_datagen)
+print("test loss, test acc:", results_training)
+print("Evaluate on training data")
+results_validation = model.evaluate_generator(validation_datagen)
+print("test loss, test acc:", results_validation)
 
 # Saving model
 model.save('hw3.h5')
