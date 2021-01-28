@@ -13,6 +13,7 @@ from keras.layers import Flatten
 from keras.layers import Dense # Fully Connected Networks
 from keras.preprocessing import image
 from keras.preprocessing.image import ImageDataGenerator
+from keras.optimizers import Adam
 from argparse import ArgumentParser
 
 
@@ -47,8 +48,15 @@ for filename in os.listdir(dir_validation):
 
 # Loading training/validation data from directories and fitting images to the CNN
 batch_size = 32    
-img_size = (128, 128)
-train_datagen = ImageDataGenerator(rescale = 1./255, shear_range = 0.2, zoom_range = 0.2, horizontal_flip = True)
+img_size = (224, 224)
+train_datagen = ImageDataGenerator(
+                                    rescale = 1./255,
+                                    rotation_range=40,
+                                    width_shift_range=0.2,
+                                    height_shift_range=0.2, 
+                                    shear_range = 0.2, 
+                                    zoom_range = 0.2, 
+                                    horizontal_flip = True)                                   
 validation_datagen = ImageDataGenerator(rescale = 1./255)
 training_data = train_datagen.flow_from_directory(dir_train, target_size = img_size, batch_size = batch_size)
 validation_data = validation_datagen.flow_from_directory(dir_validation, target_size = img_size, batch_size = batch_size)
@@ -58,6 +66,9 @@ validation_data = validation_datagen.flow_from_directory(dir_validation, target_
 Building a CNN:
     Convolution layer -> Max pooling -> Convolution layer -> Max pooling -> ... -> Convolution layer -> Max pooling -> Flattening
 '''
+
+'''
+Custom model
 
 # Initializing CNN
 model = Sequential()  
@@ -87,6 +98,44 @@ model.add(Dense(units = 11, activation= 'softmax'))
 
 # Compile CNN
 model.compile(optimizer = 'adam', loss = 'categorical_crossentropy', metrics = ['accuracy'])
+'''
+
+'''
+VGG-16
+'''
+model = Sequential()  
+
+model.add(Conv2D(64, (3, 3), input_shape = (img_size[0], img_size[1], 3), padding = "same", activation = 'relu'))
+model.add(Conv2D(64, (3, 3), padding = "same", activation = 'relu'))
+model.add(MaxPooling2D(pool_size = (2, 2), strides=(2,2)))
+
+model.add(Conv2D(128, (3, 3), padding = "same", activation = 'relu'))
+model.add(Conv2D(128, (3, 3), padding = "same", activation = 'relu'))
+model.add(MaxPooling2D(pool_size = (2, 2), strides=(2,2)))
+
+model.add(Conv2D(256, (3, 3), padding = "same", activation = 'relu'))
+model.add(Conv2D(256, (3, 3), padding = "same", activation = 'relu'))
+model.add(Conv2D(256, (3, 3), padding = "same", activation = 'relu'))
+model.add(MaxPooling2D(pool_size = (2, 2), strides=(2,2)))
+
+model.add(Conv2D(512, (3, 3), padding = "same", activation = 'relu'))
+model.add(Conv2D(512, (3, 3), padding = "same", activation = 'relu'))
+model.add(Conv2D(512, (3, 3), padding = "same", activation = 'relu'))
+model.add(MaxPooling2D(pool_size = (2, 2), strides=(2,2)))
+
+model.add(Conv2D(512, (3, 3), padding = "same", activation = 'relu'))
+model.add(Conv2D(512, (3, 3), padding = "same", activation = 'relu'))
+model.add(Conv2D(512, (3, 3), padding = "same", activation = 'relu'))
+model.add(MaxPooling2D(pool_size = (2, 2), strides=(2,2)))
+
+model.add(Flatten())
+
+model.add(Dense(units = 4096, activation="relu"))
+model.add(Dense(units = 4096, activation="relu"))
+model.add(Dense(units = 11, activation= 'softmax'))
+
+opt = Adam(lr=0.001)
+model.compile(optimizer=opt, loss='categorical_crossentropy', metrics=['accuracy'])
 
 # Show summary of the CNN network
 model.summary()
