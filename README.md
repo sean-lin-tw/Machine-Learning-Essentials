@@ -1,37 +1,41 @@
 # Machine-Learning-Practices
 Machine Learning Practices from the [course](http://speech.ee.ntu.edu.tw/~tlkagk/courses_ML20.html) by Prof. Hung-Yi Lee in National Taiwan University.
 
-HW0 - demonstrating Python proficiency
+### HW0 - demonstrating Python proficiency
 
-HW1 - Linear Regression
+### HW1 - Linear Regression
 
-HW2 - Logistic Regression (Classification)
+### HW2 - Logistic Regression (Classification)
 
-HW3 - Convolutional Neural Network ([Kaggle Link](https://www.kaggle.com/c/ml2020spring-hw3))
+### HW3 - Convolutional Neural Network ([Kaggle Link](https://www.kaggle.com/c/ml2020spring-hw3))
 
-HW4 - Recurrent Neural Network
+### HW4 - Recurrent Neural Network
 
-HW5 - Explainable AI
+### HW5 - Explainable AI
 
-HW6 - Adversarial Attack
+[Visualizing Keras CNN attention: Saliency maps](https://www.machinecurve.com/index.php/2019/11/25/visualizing-keras-cnn-attention-saliency-maps/)
 
-HW7 - Network Compression
+[Explaining Keras Model with LIME](https://www.kaggle.com/yohanb/explaining-keras-model-with-lime)
 
-HW8 - Sequence to Sequence
+### HW6 - Adversarial Attack
 
-HW9 - Clutering (Dimension Reduction)
+### HW7 - Network Compression
 
-HW10 - Anomaly Detection
+### HW8 - Sequence to Sequence
 
-HW11 - Generative Adversarial Network (GAN)
+### HW9 - Clutering (Dimension Reduction)
 
-HW12 - Transfer Learning
+### HW10 - Anomaly Detection
 
-HW13 - Meta Learning
+### HW11 - Generative Adversarial Network (GAN)
 
-HW14 - Lifelong Learning
+### HW12 - Transfer Learning
 
-HW15 - Reinforcement Learning
+### HW13 - Meta Learning
+
+### HW14 - Lifelong Learning
+
+### HW15 - Reinforcement Learning
 
 # Learning Resources
 [Deep Learning with PyTorch: A 60 Minute Blitz](https://pytorch.org/tutorials/beginner/deep_learning_60min_blitz.html)
