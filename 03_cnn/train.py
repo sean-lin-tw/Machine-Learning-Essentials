@@ -14,6 +14,7 @@ from keras.layers import Dense # Fully Connected Networks
 from keras.preprocessing import image
 from keras.preprocessing.image import ImageDataGenerator
 from keras.optimizers import Adam
+from keras.callbacks import ModelCheckpoint
 from argparse import ArgumentParser
 
 
@@ -48,7 +49,7 @@ for filename in os.listdir(dir_validation):
 
 # Loading training/validation data from directories and fitting images to the CNN
 batch_size = 32    
-img_size = (224, 224)
+img_size = (256, 256)
 train_datagen = ImageDataGenerator(
                                     rescale = 1./255,
                                     rotation_range=40,
@@ -67,8 +68,6 @@ Building a CNN:
     Convolution layer -> Max pooling -> Convolution layer -> Max pooling -> ... -> Convolution layer -> Max pooling -> Flattening
 '''
 
-'''
-Custom model
 
 # Initializing CNN
 model = Sequential()  
@@ -83,9 +82,15 @@ model.add(Conv2D(64, (3, 3), activation = 'relu'))
 model.add(Conv2D(64, (3, 3), activation = 'relu'))
 model.add(MaxPooling2D(pool_size = (2, 2)))
 
+# Third convolutional layer (and max pooling)
 model.add(Conv2D(128, (3, 3), activation = 'relu'))
 model.add(Conv2D(128, (3, 3), activation = 'relu'))
 model.add(MaxPooling2D(pool_size = (2, 2)))
+
+model.add(Conv2D(256, (3, 3), activation = 'relu'))
+model.add(Conv2D(256, (3, 3), activation = 'relu'))
+model.add(MaxPooling2D(pool_size = (2, 2)))
+
 # Dropout layer prevents overfitting
 # model.add(Dropout(0.25))
 
@@ -98,11 +103,11 @@ model.add(Dense(units = 11, activation= 'softmax'))
 
 # Compile CNN
 model.compile(optimizer = 'adam', loss = 'categorical_crossentropy', metrics = ['accuracy'])
-'''
+
 
 '''
 VGG-16
-'''
+
 model = Sequential()  
 
 model.add(Conv2D(64, (3, 3), input_shape = (img_size[0], img_size[1], 3), padding = "same", activation = 'relu'))
@@ -136,6 +141,8 @@ model.add(Dense(units = 11, activation= 'softmax'))
 
 opt = Adam(lr=0.001)
 model.compile(optimizer=opt, loss='categorical_crossentropy', metrics=['accuracy'])
+'''
+
 
 # Show summary of the CNN network
 model.summary()
@@ -147,15 +154,18 @@ Training CNN
 steps_per_epoch = math.ceil(9866 / batch_size)
 validation_steps = math.ceil(3430 / batch_size)
 epochs = 100
-history = model.fit_generator(training_data, steps_per_epoch = steps_per_epoch, epochs = epochs, validation_data = validation_data, validation_steps = validation_steps)
+
+checkpoint = ModelCheckpoint("best_model_hw3.h5", monitor='val_accuracy', verbose=1, save_best_only=True, mode='auto', save_freq='epoch')
+
+history = model.fit(training_data, steps_per_epoch = steps_per_epoch, epochs = epochs, validation_data = validation_data, validation_steps = validation_steps, use_multiprocessing=True, callbacks=[checkpoint])
 
 # Evaluate model
 print("Evaluate on training data")
-results_training = model.evaluate_generator(train_datagen)
-print("test loss, test acc:", results_training)
+train_loss, train_acc = model.evaluate(training_data)
+print("Training loss: {:8.4f}, Training accuracy: {:.2%}".format(train_loss, train_acc))
 print("Evaluate on training data")
-results_validation = model.evaluate_generator(validation_datagen)
-print("test loss, test acc:", results_validation)
+valid_loss, valid_acc = model.evaluate(validation_data)
+print("Validation loss: {:8.4f}, Validation accuracy: {:.2%}".format(valid_loss, valid_acc))
 
 # Saving model
 model.save('hw3.h5')
