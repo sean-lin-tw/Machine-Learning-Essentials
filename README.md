@@ -15,6 +15,8 @@ Machine Learning Practices from the [course](http://speech.ee.ntu.edu.tw/~tlkagk
 
 [Visualizing Keras CNN attention: Saliency maps](https://www.machinecurve.com/index.php/2019/11/25/visualizing-keras-cnn-attention-saliency-maps/)
 
+[How convolutional neural networks see the world](https://blog.keras.io/how-convolutional-neural-networks-see-the-world.html)
+
 [Explaining Keras Model with LIME](https://www.kaggle.com/yohanb/explaining-keras-model-with-lime)
 
 ### HW6 - Adversarial Attack
