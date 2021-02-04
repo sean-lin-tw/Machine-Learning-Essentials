@@ -25,6 +25,8 @@ Machine Learning Practices from the [course](http://speech.ee.ntu.edu.tw/~tlkagk
 
 ### HW8 - Sequence to Sequence
 
+[A ten-minute introduction to sequence-to-sequence learning in Keras](https://blog.keras.io/a-ten-minute-introduction-to-sequence-to-sequence-learning-in-keras.html)
+
 ### HW9 - Clutering (Dimension Reduction)
 
 ### HW10 - Anomaly Detection
