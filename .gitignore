@@ -1,5 +1,6 @@
 *.csv
 *.docx
+*.gz
 *.h5
 *.ipynb
 *.zip
