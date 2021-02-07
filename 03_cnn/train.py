@@ -49,7 +49,7 @@ for filename in os.listdir(dir_validation):
 
 # Loading training/validation data from directories and fitting images to the CNN
 batch_size = 32    
-img_size = (256, 256)
+img_size = (128, 128)
 train_datagen = ImageDataGenerator(
                                     rescale = 1./255,
                                     rotation_range=40,
@@ -91,6 +91,7 @@ model.add(Conv2D(256, (3, 3), activation = 'relu'))
 model.add(Conv2D(256, (3, 3), activation = 'relu'))
 model.add(MaxPooling2D(pool_size = (2, 2)))
 
+
 # Dropout layer prevents overfitting
 # model.add(Dropout(0.25))
 
@@ -98,6 +99,7 @@ model.add(MaxPooling2D(pool_size = (2, 2)))
 model.add(Flatten())
 
 # Feedforward Neural Network
+model.add(Dense(units = 128, activation = 'relu'))
 model.add(Dense(units = 128, activation = 'relu'))
 model.add(Dense(units = 11, activation= 'softmax'))
 
@@ -157,7 +159,7 @@ epochs = 100
 
 checkpoint = ModelCheckpoint("best_model_hw3.h5", monitor='val_accuracy', verbose=1, save_best_only=True, mode='auto', save_freq='epoch')
 
-history = model.fit(training_data, steps_per_epoch = steps_per_epoch, epochs = epochs, validation_data = validation_data, validation_steps = validation_steps, use_multiprocessing=True, callbacks=[checkpoint])
+history = model.fit(training_data, steps_per_epoch = steps_per_epoch, epochs = epochs, validation_data = validation_data, validation_steps = validation_steps, callbacks=[checkpoint])
 
 # Evaluate model
 print("Evaluate on training data")
