@@ -1,17 +1,17 @@
 # Machine-Learning-Practices
 Useful Machine Learning notebooks, code templates, practices. Currently most content is from the [Machine Learning Course](http://speech.ee.ntu.edu.tw/~tlkagk/courses_ML20.html) by Prof. Hung-Yi Lee in National Taiwan University.
 
-### HW0 - demonstrating Python proficiency
+### Basic Python
 
-### HW1 - Linear Regression
+### - Linear Regression
 
-### HW2 - Logistic Regression (Classification)
+### - Logistic Regression (Classification)
 
-### HW3 - Convolutional Neural Network ([Kaggle Link](https://www.kaggle.com/c/ml2020spring-hw3))
+### Convolutional Neural Network ([Kaggle Link](https://www.kaggle.com/c/ml2020spring-hw3))
 
-### HW4 - Recurrent Neural Network
+### Recurrent Neural Network
 
-### HW5 - Explainable AI
+### Explainable AI
 
 [Visualizing Keras CNN attention: Saliency maps](https://www.machinecurve.com/index.php/2019/11/25/visualizing-keras-cnn-attention-saliency-maps/)
 
@@ -19,27 +19,27 @@ Useful Machine Learning notebooks, code templates, practices. Currently most con
 
 [Explaining Keras Model with LIME](https://www.kaggle.com/yohanb/explaining-keras-model-with-lime)
 
-### HW6 - Adversarial Attack
+### Adversarial Attack
 
-### HW7 - Network Compression
+### Network Compression
 
-### HW8 - Sequence to Sequence
+### Sequence to Sequence
 
 [A ten-minute introduction to sequence-to-sequence learning in Keras](https://blog.keras.io/a-ten-minute-introduction-to-sequence-to-sequence-learning-in-keras.html)
 
-### HW9 - Clutering (Dimension Reduction)
+### Clutering (Dimension Reduction)
 
-### HW10 - Anomaly Detection
+### Anomaly Detection
 
-### HW11 - Generative Adversarial Network (GAN)
+### Generative Adversarial Network (GAN)
 
-### HW12 - Transfer Learning
+### - Transfer Learning
 
-### HW13 - Meta Learning
+### - Meta Learning
 
-### HW14 - Lifelong Learning
+### - Lifelong Learning
 
-### HW15 - Reinforcement Learning
+### - Reinforcement Learning
 
 # Learning Resources
 [Deep Learning with PyTorch: A 60 Minute Blitz](https://pytorch.org/tutorials/beginner/deep_learning_60min_blitz.html)
