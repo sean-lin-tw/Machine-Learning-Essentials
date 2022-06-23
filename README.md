@@ -1,7 +1,7 @@
-# Machine-Learning-Practices
-Useful Machine Learning notebooks, code templates, practices. Currently most content is from the [Machine Learning Course](http://speech.ee.ntu.edu.tw/~tlkagk/courses_ML20.html) by Prof. Hung-Yi Lee in National Taiwan University.
+# Machine Learning Practices
+Useful Machine Learning notes, code, and practices. Currently most of the content is from the [Machine Learning Course](http://speech.ee.ntu.edu.tw/~tlkagk/courses_ML20.html) by Prof. Hung-Yi Lee in National Taiwan University.
 
-### Basic Python
+### - Pytorch
 
 ### - Linear Regression
 
