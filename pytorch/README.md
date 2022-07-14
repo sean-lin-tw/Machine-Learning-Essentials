@@ -1,5 +1,5 @@
 # Defining and Loading Data
-```
+```python
 from torch.utils.data import Dataset, DataLoader
 
 class MyDataset(Dataset):
@@ -19,7 +19,7 @@ dataset = MyDataset(file)
 dataloader = DataLoader(dataset, batch_size=5, shuffle=False)
 ```
 # Tensor Operations
-```
+```python
 # creation
 x = torch.tensor([[1, -1], [-1, 1]])
 x = torch.from_numpy(np.array([[1, -1], [-1, 1]]))
@@ -33,7 +33,7 @@ x = x.to('cuda')
 # Defining a Network
 - Linear Layer
 - Non-linear layer
-```
+```python
 import torch.nn as nn
 
 class MyModel(nn.Module):
@@ -50,7 +50,7 @@ class MyModel(nn.Module):
 ```
 
 # Choosing a Loss Function
-```
+```python
 criterion = nn.MSELoss() # Mean Squared Error (for regression tasks)
 criterion = nn.CrossEntropyLoss() # Cross Entropy (for classification tasks)
 loss = criterion(model_output, expected_value)
@@ -58,7 +58,7 @@ loss = criterion(model_output, expected_value)
 
 # Choosing an Optimizer
 - `torch.optim`: gradient-based optimization algorithms
-```
+```python
 optimizer = torch.optim.SGD(model.parameters(), lr, momentum = 0)
 ```
 - For every batch of data:
@@ -67,14 +67,14 @@ optimizer = torch.optim.SGD(model.parameters(), lr, momentum = 0)
  3. Call optimizer.step() to adjust model parameters
 
 # Saving and Loading the Model
-```
+```python
 torch.save(model.state_dict(), path)
 ckpt = torch.load(path)
 model.load_state_dict(ckpt)
 ```
 
 # Overall Code Template
-```
+```python
 dataset = MyDataset(file)
 training_set = DataLoader(dataset, 16, shuffle=True)
 mode = MyModel().to(device) # construct model and move to device (cpu/cuda)
